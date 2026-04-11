@@ -111,7 +111,24 @@ The exception is `-InstallGsd`, which runs the Get Shit Done installer because t
 ```text
 manifests/core-packages.json  Package registry and install policy
 scripts/install.ps1          Main installer
+scripts/publish-github.ps1   Optional publisher for maintainers
 docs/                        Platform-specific notes
+```
+
+## Publishing Your Fork
+
+After creating or editing the project locally, publish it with GitHub CLI:
+
+```powershell
+gh auth login
+powershell -ExecutionPolicy Bypass -File .\scripts\publish-github.ps1 -Owner sbfrogerio -Repo unlimited-core-skills
+```
+
+Or use a token:
+
+```powershell
+$env:GITHUB_TOKEN = "ghp_..."
+powershell -ExecutionPolicy Bypass -File .\scripts\publish-github.ps1 -Owner sbfrogerio -Repo unlimited-core-skills
 ```
 
 ## License
