@@ -1,0 +1,605 @@
+﻿{
+    "schema_version":  1,
+    "generated_from":  "agent-skill-hub registry",
+    "generated_at":  "2026-04-11T20:24:28.5514487-03:00",
+    "packages":  [
+                     {
+                         "id":  "superpowers",
+                         "name":  "Superpowers",
+                         "hype":  "very-high",
+                         "type":  "agent-skill-pack",
+                         "repo":  "https://github.com/obra/superpowers.git",
+                         "platforms":  [
+                                           "claude-code",
+                                           "codex",
+                                           "antigravity"
+                                       ],
+                         "skill_roots":  [
+                                             "skills",
+                                             ".agents/skills",
+                                             ".claude/skills",
+                                             ".github/skills",
+                                             ".github/plugins"
+                                         ],
+                         "sparse_paths":  [
+
+                                          ],
+                         "install_skills":  true,
+                         "reference_only":  false,
+                         "notes":  "Popular workflow pack for planning, specs, TDD, debugging, review and subagent discipline."
+                     },
+                     {
+                         "id":  "anthropic-skills",
+                         "name":  "Anthropic Agent Skills",
+                         "hype":  "very-high",
+                         "type":  "official-skills",
+                         "repo":  "https://github.com/anthropics/skills.git",
+                         "platforms":  [
+                                           "claude-code",
+                                           "codex",
+                                           "antigravity"
+                                       ],
+                         "skill_roots":  [
+                                             "skills",
+                                             ".agents/skills",
+                                             ".claude/skills",
+                                             ".github/skills",
+                                             ".github/plugins"
+                                         ],
+                         "sparse_paths":  [
+
+                                          ],
+                         "install_skills":  true,
+                         "reference_only":  false,
+                         "notes":  "Official skill examples and reference implementations."
+                     },
+                     {
+                         "id":  "everything-claude-code",
+                         "name":  "Everything Claude Code",
+                         "hype":  "very-high",
+                         "type":  "mega-pack",
+                         "repo":  "https://github.com/affaan-m/everything-claude-code.git",
+                         "platforms":  [
+                                           "claude-code",
+                                           "codex",
+                                           "antigravity"
+                                       ],
+                         "skill_roots":  [
+                                             "skills",
+                                             ".agents/skills",
+                                             ".claude/skills",
+                                             ".github/skills",
+                                             ".github/plugins"
+                                         ],
+                         "sparse_paths":  [
+
+                                          ],
+                         "install_skills":  true,
+                         "reference_only":  false,
+                         "notes":  "Large curated collection of agents, commands, hooks, skills and context workflows."
+                     },
+                     {
+                         "id":  "bmad-method",
+                         "name":  "BMAD-METHOD",
+                         "hype":  "very-high",
+                         "type":  "multi-agent-method",
+                         "repo":  "https://github.com/bmad-code-org/BMAD-METHOD.git",
+                         "platforms":  [
+                                           "claude-code",
+                                           "codex",
+                                           "antigravity",
+                                           "cursor",
+                                           "windsurf"
+                                       ],
+                         "skill_roots":  [
+                                             "skills",
+                                             ".agents/skills",
+                                             ".claude/skills",
+                                             ".github/skills",
+                                             ".github/plugins"
+                                         ],
+                         "sparse_paths":  [
+
+                                          ],
+                         "install_skills":  true,
+                         "reference_only":  false,
+                         "notes":  "Mature multi-agent agile method with analyst, PM, architect, dev and QA roles."
+                     },
+                     {
+                         "id":  "superclaude-framework",
+                         "name":  "SuperClaude Framework",
+                         "hype":  "high",
+                         "type":  "command-agent-framework",
+                         "repo":  "https://github.com/SuperClaude-Org/SuperClaude_Framework.git",
+                         "platforms":  [
+                                           "claude-code",
+                                           "codex"
+                                       ],
+                         "skill_roots":  [
+                                             "skills",
+                                             ".agents/skills",
+                                             ".claude/skills",
+                                             ".github/skills",
+                                             ".github/plugins"
+                                         ],
+                         "sparse_paths":  [
+
+                                          ],
+                         "install_skills":  true,
+                         "reference_only":  false,
+                         "notes":  "Popular Claude Code command/persona framework."
+                     },
+                     {
+                         "id":  "vercel-skills",
+                         "name":  "Vercel Skills",
+                         "hype":  "very-high",
+                         "type":  "platform-skills",
+                         "repo":  "https://github.com/vercel-labs/skills.git",
+                         "platforms":  [
+                                           "codex",
+                                           "claude-code"
+                                       ],
+                         "skill_roots":  [
+                                             "skills",
+                                             ".agents/skills",
+                                             ".claude/skills",
+                                             ".github/skills",
+                                             ".github/plugins"
+                                         ],
+                         "sparse_paths":  [
+
+                                          ],
+                         "install_skills":  true,
+                         "reference_only":  false,
+                         "notes":  "High-value web, deployment, Next.js and AI SDK guidance."
+                     },
+                     {
+                         "id":  "microsoft-skills",
+                         "name":  "Microsoft Agent Skills",
+                         "hype":  "high",
+                         "type":  "official-skills",
+                         "repo":  "https://github.com/microsoft/skills.git",
+                         "platforms":  [
+                                           "codex",
+                                           "claude-code",
+                                           "copilot",
+                                           "antigravity"
+                                       ],
+                         "skill_roots":  [
+                                             "skills",
+                                             ".agents/skills",
+                                             ".claude/skills",
+                                             ".github/skills",
+                                             ".github/plugins"
+                                         ],
+                         "sparse_paths":  [
+
+                                          ],
+                         "install_skills":  true,
+                         "reference_only":  false,
+                         "notes":  "Large official library with planning, docs, frontend, backend and infra workflows."
+                     },
+                     {
+                         "id":  "awesome-agent-skills",
+                         "name":  "Awesome Agent Skills",
+                         "hype":  "high",
+                         "type":  "registry",
+                         "repo":  "https://github.com/VoltAgent/awesome-agent-skills.git",
+                         "platforms":  [
+                                           "codex",
+                                           "claude-code",
+                                           "antigravity"
+                                       ],
+                         "skill_roots":  [
+                                             "skills",
+                                             ".agents/skills",
+                                             ".claude/skills",
+                                             ".github/skills",
+                                             ".github/plugins"
+                                         ],
+                         "sparse_paths":  [
+
+                                          ],
+                         "install_skills":  false,
+                         "reference_only":  true,
+                         "notes":  "Useful cross-agent index for finding new packs."
+                     },
+                     {
+                         "id":  "antigravity-awesome-skills",
+                         "name":  "Antigravity Awesome Skills",
+                         "hype":  "very-high",
+                         "type":  "antigravity-pack",
+                         "repo":  "https://github.com/sebas-aikon-intelligence/antigravity-awesome-skills.git",
+                         "platforms":  [
+                                           "antigravity",
+                                           "gemini",
+                                           "codex",
+                                           "claude-code"
+                                       ],
+                         "skill_roots":  [
+                                             "skills",
+                                             ".agents/skills",
+                                             ".claude/skills",
+                                             ".github/skills",
+                                             ".github/plugins"
+                                         ],
+                         "sparse_paths":  [
+
+                                          ],
+                         "install_skills":  true,
+                         "reference_only":  false,
+                         "notes":  "Broad Antigravity-focused skill collection."
+                     },
+                     {
+                         "id":  "openclaw-skills",
+                         "name":  "OpenClaw Skills",
+                         "hype":  "high",
+                         "type":  "large-skill-registry",
+                         "repo":  "https://github.com/openclaw/skills.git",
+                         "platforms":  [
+                                           "antigravity",
+                                           "openclaw",
+                                           "codex"
+                                       ],
+                         "skill_roots":  [
+                                             "skills",
+                                             ".agents/skills",
+                                             ".claude/skills",
+                                             ".github/skills",
+                                             ".github/plugins"
+                                         ],
+                         "sparse_paths":  [
+
+                                          ],
+                         "install_skills":  false,
+                         "reference_only":  true,
+                         "notes":  "Large public skill registry; useful for discovery but unsafe to bulk materialize on Windows."
+                     },
+                     {
+                         "id":  "ui-ux-pro-max-skill",
+                         "name":  "UI UX Pro Max",
+                         "hype":  "high",
+                         "type":  "design-skill-pack",
+                         "repo":  "https://github.com/nextlevelbuilder/ui-ux-pro-max-skill.git",
+                         "platforms":  [
+                                           "antigravity",
+                                           "codex",
+                                           "claude-code"
+                                       ],
+                         "skill_roots":  [
+                                             "skills",
+                                             ".agents/skills",
+                                             ".claude/skills",
+                                             ".github/skills",
+                                             ".github/plugins"
+                                         ],
+                         "sparse_paths":  [
+
+                                          ],
+                         "install_skills":  true,
+                         "reference_only":  false,
+                         "notes":  "Hyped UI/UX skill pack for strong visual product work."
+                     },
+                     {
+                         "id":  "claude-code-skill-factory",
+                         "name":  "Claude Code Skill Factory",
+                         "hype":  "high",
+                         "type":  "skill-authoring-pack",
+                         "repo":  "https://github.com/alirezarezvani/claude-code-skill-factory.git",
+                         "platforms":  [
+                                           "claude-code",
+                                           "codex"
+                                       ],
+                         "skill_roots":  [
+                                             "skills",
+                                             ".agents/skills",
+                                             ".claude/skills",
+                                             ".github/skills",
+                                             ".github/plugins"
+                                         ],
+                         "sparse_paths":  [
+
+                                          ],
+                         "install_skills":  true,
+                         "reference_only":  false,
+                         "notes":  "Useful for creating and standardizing new SKILL.md assets."
+                     },
+                     {
+                         "id":  "claude-skills",
+                         "name":  "Claude Skills Collection",
+                         "hype":  "high",
+                         "type":  "skill-pack",
+                         "repo":  "https://github.com/alirezarezvani/claude-skills.git",
+                         "platforms":  [
+                                           "claude-code",
+                                           "codex",
+                                           "antigravity"
+                                       ],
+                         "skill_roots":  [
+                                             "skills",
+                                             ".agents/skills",
+                                             ".claude/skills",
+                                             ".github/skills",
+                                             ".github/plugins"
+                                         ],
+                         "sparse_paths":  [
+
+                                          ],
+                         "install_skills":  true,
+                         "reference_only":  false,
+                         "notes":  "Large practical collection of SKILL.md folders."
+                     },
+                     {
+                         "id":  "claude-skills-marketplace",
+                         "name":  "Claude Skills Marketplace",
+                         "hype":  "medium-high",
+                         "type":  "skill-pack",
+                         "repo":  "https://github.com/mhattingpete/claude-skills-marketplace.git",
+                         "platforms":  [
+                                           "claude-code",
+                                           "codex"
+                                       ],
+                         "skill_roots":  [
+                                             "skills",
+                                             ".agents/skills",
+                                             ".claude/skills",
+                                             ".github/skills",
+                                             ".github/plugins"
+                                         ],
+                         "sparse_paths":  [
+
+                                          ],
+                         "install_skills":  true,
+                         "reference_only":  false,
+                         "notes":  "Compact curated marketplace with engineering/productivity workflows."
+                     },
+                     {
+                         "id":  "wshobson-agents",
+                         "name":  "wshobson Agents",
+                         "hype":  "high",
+                         "type":  "subagent-pack",
+                         "repo":  "https://github.com/wshobson/agents.git",
+                         "platforms":  [
+                                           "claude-code",
+                                           "codex"
+                                       ],
+                         "skill_roots":  [
+                                             "skills",
+                                             ".agents/skills",
+                                             ".claude/skills",
+                                             ".github/skills",
+                                             ".github/plugins"
+                                         ],
+                         "sparse_paths":  [
+
+                                          ],
+                         "install_skills":  true,
+                         "reference_only":  false,
+                         "notes":  "Large subagent role library for architecture, languages, QA, infra, data and security."
+                     },
+                     {
+                         "id":  "repomix",
+                         "name":  "Repomix",
+                         "hype":  "high",
+                         "type":  "context-tool",
+                         "repo":  "https://github.com/yamadashy/repomix.git",
+                         "platforms":  [
+                                           "codex",
+                                           "claude-code",
+                                           "antigravity",
+                                           "gemini"
+                                       ],
+                         "skill_roots":  [
+                                             "skills",
+                                             ".agents/skills",
+                                             ".claude/skills",
+                                             ".github/skills",
+                                             ".github/plugins"
+                                         ],
+                         "sparse_paths":  [
+
+                                          ],
+                         "install_skills":  true,
+                         "reference_only":  false,
+                         "notes":  "Popular repository-to-LLM context packer."
+                     },
+                     {
+                         "id":  "chrome-devtools-mcp",
+                         "name":  "Chrome DevTools MCP",
+                         "hype":  "very-high",
+                         "type":  "mcp-server",
+                         "repo":  "https://github.com/ChromeDevTools/chrome-devtools-mcp.git",
+                         "platforms":  [
+                                           "codex",
+                                           "claude-code",
+                                           "antigravity"
+                                       ],
+                         "skill_roots":  [
+                                             "skills",
+                                             ".agents/skills",
+                                             ".claude/skills",
+                                             ".github/skills",
+                                             ".github/plugins"
+                                         ],
+                         "sparse_paths":  [
+
+                                          ],
+                         "install_skills":  true,
+                         "reference_only":  false,
+                         "notes":  "Browser debugging, console, network and performance context."
+                     },
+                     {
+                         "id":  "claude-plugins",
+                         "name":  "claude-plugins",
+                         "hype":  "medium-high",
+                         "type":  "plugin-installer-pack",
+                         "repo":  "https://github.com/cblecker/claude-plugins.git",
+                         "platforms":  [
+                                           "claude-code"
+                                       ],
+                         "skill_roots":  [
+                                             "skills",
+                                             ".agents/skills",
+                                             ".claude/skills",
+                                             ".github/skills",
+                                             ".github/plugins"
+                                         ],
+                         "sparse_paths":  [
+
+                                          ],
+                         "install_skills":  true,
+                         "reference_only":  false,
+                         "notes":  "Practical plugin management experiments for Claude Code."
+                     },
+                     {
+                         "id":  "superantigravity",
+                         "name":  "SuperAntigravity",
+                         "hype":  "medium-high",
+                         "type":  "antigravity-pack",
+                         "repo":  "https://github.com/derHaken/SuperAntigravity.git",
+                         "platforms":  [
+                                           "antigravity"
+                                       ],
+                         "skill_roots":  [
+                                             "skills",
+                                             ".agents/skills",
+                                             ".claude/skills",
+                                             ".github/skills",
+                                             ".github/plugins"
+                                         ],
+                         "sparse_paths":  [
+
+                                          ],
+                         "install_skills":  true,
+                         "reference_only":  false,
+                         "notes":  "Community attempt to bring SuperClaude/Superpowers-like patterns to Antigravity."
+                     },
+                     {
+                         "id":  "modelcontextprotocol-servers",
+                         "name":  "Model Context Protocol Servers",
+                         "hype":  "very-high",
+                         "type":  "mcp-reference",
+                         "repo":  "https://github.com/modelcontextprotocol/servers.git",
+                         "platforms":  [
+                                           "codex",
+                                           "claude-code",
+                                           "antigravity"
+                                       ],
+                         "skill_roots":  [
+                                             "skills",
+                                             ".agents/skills",
+                                             ".claude/skills",
+                                             ".github/skills",
+                                             ".github/plugins"
+                                         ],
+                         "sparse_paths":  [
+
+                                          ],
+                         "install_skills":  false,
+                         "reference_only":  true,
+                         "notes":  "Canonical MCP server examples and patterns."
+                     },
+                     {
+                         "id":  "playwright-mcp",
+                         "name":  "Playwright MCP",
+                         "hype":  "very-high",
+                         "type":  "mcp-server",
+                         "repo":  "https://github.com/microsoft/playwright-mcp.git",
+                         "platforms":  [
+                                           "codex",
+                                           "claude-code",
+                                           "antigravity"
+                                       ],
+                         "skill_roots":  [
+                                             "skills",
+                                             ".agents/skills",
+                                             ".claude/skills",
+                                             ".github/skills",
+                                             ".github/plugins"
+                                         ],
+                         "sparse_paths":  [
+
+                                          ],
+                         "install_skills":  false,
+                         "reference_only":  true,
+                         "notes":  "Browser automation, testing and screenshots."
+                     },
+                     {
+                         "id":  "antigravity-kit",
+                         "name":  "Antigravity Kit",
+                         "hype":  "very-high",
+                         "type":  "antigravity-agent-skill-kit",
+                         "repo":  "https://github.com/vudovn/antigravity-kit.git",
+                         "platforms":  [
+                                           "antigravity",
+                                           "gemini",
+                                           "codex",
+                                           "claude-code"
+                                       ],
+                         "skill_roots":  [
+                                             ".agent/skills"
+                                         ],
+                         "sparse_paths":  [
+
+                                          ],
+                         "install_skills":  true,
+                         "reference_only":  false,
+                         "notes":  "Hyped Antigravity kit with practical skills for app building, architecture, frontend, backend, databases, games, security and workflows."
+                     },
+                     {
+                         "id":  "get-shit-done",
+                         "name":  "Get Shit Done",
+                         "hype":  "very-high",
+                         "type":  "workflow-agent-command-pack",
+                         "repo":  "https://github.com/gsd-build/get-shit-done.git",
+                         "platforms":  [
+                                           "codex",
+                                           "claude-code",
+                                           "gemini",
+                                           "antigravity",
+                                           "cursor",
+                                           "windsurf"
+                                       ],
+                         "skill_roots":  [
+
+                                         ],
+                         "sparse_paths":  [
+
+                                          ],
+                         "install_skills":  false,
+                         "reference_only":  true,
+                         "notes":  "Popular meta-prompting and spec-driven development system with many workflow commands and specialist agents."
+                     },
+                     {
+                         "id":  "antigravity-awesome-skills-sickn33",
+                         "name":  "Antigravity Awesome Skills by sickn33",
+                         "hype":  "very-high",
+                         "type":  "mega-skill-library",
+                         "repo":  "https://github.com/sickn33/antigravity-awesome-skills.git",
+                         "platforms":  [
+                                           "codex",
+                                           "claude-code",
+                                           "cursor",
+                                           "gemini",
+                                           "antigravity",
+                                           "copilot",
+                                           "opencode"
+                                       ],
+                         "skill_roots":  [
+                                             "skills"
+                                         ],
+                         "sparse_paths":  [
+                                              "skills",
+                                              "README.md",
+                                              "CATALOG.md",
+                                              "skills_index.json",
+                                              "package.json",
+                                              "LICENSE",
+                                              "LICENSE-CONTENT"
+                                          ],
+                         "install_skills":  true,
+                         "reference_only":  false,
+                         "notes":  "Highly starred installable library advertised for Codex CLI, Claude Code, Cursor, Gemini CLI and Antigravity, with 1,400+ reusable agentic SKILL.md playbooks."
+                     }
+                 ]
+}

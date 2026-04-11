@@ -1,0 +1,25 @@
+name: validate
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  powershell:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Parse installer
+        shell: pwsh
+        run: |
+          $tokens = $null
+          $errors = $null
+          [System.Management.Automation.Language.Parser]::ParseFile("scripts/install.ps1", [ref]$tokens, [ref]$errors) | Out-Null
+          if ($errors) {
+            $errors | Format-List
+            exit 1
+          }
+      - name: Dry run
+        shell: pwsh
+        run: |
+          ./scripts/install.ps1 -Platform codex -IncludePackage anthropic-skills -Workspace "$env:TEMP/ucs-dryrun" -DryRun
