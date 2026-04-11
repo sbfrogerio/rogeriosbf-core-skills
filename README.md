@@ -34,7 +34,7 @@ Mega packs are installed as explicit skills, using the `ucs-*` prefix, so they d
 Clone the repo and run the installer:
 
 ```powershell
-git clone https://github.com/YOUR_GITHUB_USER/unlimited-core-skills.git
+git clone https://github.com/sbfrogerio/unlimited-core-skills.git
 cd unlimited-core-skills
 powershell -ExecutionPolicy Bypass -File .\scripts\install.ps1 -Platform codex
 ```
