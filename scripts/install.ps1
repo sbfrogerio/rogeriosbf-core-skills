@@ -23,6 +23,13 @@ if (-not $ManifestPath) {
   $ManifestPath = Join-Path $repoRoot 'manifests\core-packages.json'
 }
 
+function Write-Banner {
+  Write-Host "===========================================================" -ForegroundColor Cyan
+  Write-Host " [ rogeriosbf CORE Skills ] - Installer" -ForegroundColor Cyan
+  Write-Host "===========================================================" -ForegroundColor Cyan
+  Write-Host ""
+}
+
 function Assert-Command {
   param([string]$Name)
   if (-not (Get-Command $Name -ErrorAction SilentlyContinue)) {
@@ -147,6 +154,7 @@ function Sync-Package {
 
   if (Test-Path (Join-Path $dest '.git')) {
     if ($UpdateSources) {
+      Write-Host "[Git] Updating $($Package.id)..." -ForegroundColor DarkGray
       Invoke-Git -GitArgs @('-C', $dest, 'fetch', '--depth', '1', 'origin')
       Invoke-Git -GitArgs @('-C', $dest, 'reset', '--hard', 'origin/HEAD')
     }
@@ -154,10 +162,11 @@ function Sync-Package {
   }
 
   if ($DryRun) {
-    Write-Host "DRY clone $($Package.repo) -> $dest"
+    Write-Host "[DRY RUN] Would clone $($Package.repo) -> $dest" -ForegroundColor Yellow
     return $dest
   }
 
+  Write-Host "[Git] Cloning $($Package.id)..." -ForegroundColor DarkGray
   if (@($Package.sparse_paths).Count -gt 0) {
     Invoke-Git -GitArgs @('clone', '--depth', '1', '--filter=blob:none', '--sparse', $Package.repo, $dest)
     $sparseArgs = @('-C', $dest, 'sparse-checkout', 'set', '--no-cone') + @($Package.sparse_paths)
@@ -212,7 +221,7 @@ function Remove-PreviousManagedSkills {
       (Test-Path (Join-Path $_.FullName '_unlimited_core_skill.json'))
     } |
     ForEach-Object {
-      if ($DryRun) { Write-Host "DRY remove $($_.FullName)" }
+      if ($DryRun) { Write-Host "[DRY RUN] Would remove old skill: $($_.FullName)" -ForegroundColor Yellow }
       else { Remove-Item -LiteralPath $_.FullName -Recurse -Force }
     }
 }
@@ -237,7 +246,7 @@ function Install-Skill {
 
   $dest = Join-Path $Target.Path $installName
   if ($DryRun) {
-    Write-Host "DRY install $relative -> $dest"
+    Write-Host "[DRY RUN] Would install $relative -> $installName" -ForegroundColor Yellow
     return $installName
   }
 
@@ -283,6 +292,7 @@ function Install-GsdPackage {
   }
 }
 
+Write-Banner
 Assert-Command git
 if (-not (Test-Path $ManifestPath)) {
   throw "Manifest not found: $ManifestPath"
@@ -313,29 +323,35 @@ $skipped = @()
 $gsdPath = $null
 
 foreach ($package in $selectedPackages) {
-  if ($package.id -eq 'get-shit-done') {
-    $gsdPath = Sync-Package -Package $package -SourceRoot $sourceRoot
-    $skipped += [pscustomobject]@{ package_id=$package.id; reason='handled-by-optional-installer' }
-    continue
-  }
+  try {
+    if ($package.id -eq 'get-shit-done') {
+      $gsdPath = Sync-Package -Package $package -SourceRoot $sourceRoot
+      $skipped += [pscustomobject]@{ package_id=$package.id; reason='handled-by-optional-installer' }
+      continue
+    }
 
-  $packagePath = Sync-Package -Package $package -SourceRoot $sourceRoot
+    $packagePath = Sync-Package -Package $package -SourceRoot $sourceRoot
 
-  if (-not $package.install_skills) {
-    $skipped += [pscustomobject]@{ package_id=$package.id; reason='reference-only' }
-    continue
-  }
+    if (-not $package.install_skills) {
+      $skipped += [pscustomobject]@{ package_id=$package.id; reason='reference-only' }
+      continue
+    }
 
-  $skillFiles = Get-SkillFilesForPackage -Package $package -PackagePath $packagePath
-  foreach ($skillFile in $skillFiles) {
-    foreach ($target in $targets) {
-      $name = Install-Skill -Package $package -SkillFile $skillFile.FullName -PackagePath $packagePath -Target $target
-      $installed += [pscustomobject]@{
-        package_id = $package.id
-        platform = $target.Platform
-        skill_name = $name
+    $skillFiles = Get-SkillFilesForPackage -Package $package -PackagePath $packagePath
+    foreach ($skillFile in $skillFiles) {
+      foreach ($target in $targets) {
+        $name = Install-Skill -Package $package -SkillFile $skillFile.FullName -PackagePath $packagePath -Target $target
+        $installed += [pscustomobject]@{
+          package_id = $package.id
+          platform = $target.Platform
+          skill_name = $name
+        }
       }
     }
+    Write-Host "[Success] Installed package: $($package.id)" -ForegroundColor Green
+  } catch {
+    Write-Host "[Error] Failed to process package $($package.id): $($_.Exception.Message)" -ForegroundColor Red
+    $skipped += [pscustomobject]@{ package_id=$package.id; reason="error: $($_.Exception.Message)" }
   }
 }
 
@@ -360,7 +376,7 @@ if (-not $DryRun) {
   $summaryPath = Join-Path $reportRoot 'install-summary.json'
   $summaryJson = $summary | ConvertTo-Json -Depth 8
   Write-TextNoBom -Path $summaryPath -Text $summaryJson
-  Write-Host "Wrote $summaryPath"
+  Write-Host "Wrote report to $summaryPath" -ForegroundColor DarkGray
 }
 
-$summary | ConvertTo-Json -Depth 8
+Write-Host "`nInstallation complete. Installed $($summary.installed_count) skill(s) across $($summary.targets.Count) platform paths." -ForegroundColor Cyan
