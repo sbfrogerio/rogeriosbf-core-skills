@@ -1,22 +1,23 @@
 # Architecture
 
-Unlimited CORE Skills is intentionally small.
+rogeriosbf CORE Skills is intentionally small and focused.
 
-It contains:
+## What It Contains
 
-- A package manifest with upstream repositories and installation policy.
-- One installer that clones sources into a local cache.
-- Platform adapters that copy normalized `SKILL.md` folders into local agent skill roots.
-- Reports that show what was installed.
+- A **package manifest** (`manifests/core-packages.json`) with upstream repositories and installation policy.
+- One **installer** (`scripts/install.ps1`) that clones sources into a local cache.
+- **Platform adapters** that copy normalized `SKILL.md` folders into local agent skill roots.
+- An **uninstaller** (`scripts/uninstall.ps1`) that cleanly removes only managed skills.
+- **Reports** that show what was installed.
 
-It does not:
+## What It Does NOT Do
 
-- Vendor the upstream skill packs.
-- Enable all skills implicitly.
-- Run third-party hooks by default.
-- Overwrite unmanaged user skills.
+- Vendor upstream skill packs into this repository.
+- Enable all skills implicitly (Codex skills are explicit-only).
+- Run third-party hooks or install scripts by default.
+- Overwrite or remove unmanaged user skills.
 
-## Flow
+## Installation Flow
 
 ```mermaid
 flowchart TD
@@ -25,20 +26,22 @@ flowchart TD
   C --> D["Discover SKILL.md files"]
   D --> E["Normalize frontmatter"]
   E --> F["Install ucs-* skills"]
-  F --> G["Write install-summary.json"]
+  F --> G["Set Codex explicit policy"]
+  G --> H["Write _rogeriosbf_core_skill.json"]
+  H --> I["Write install-summary.json"]
 ```
 
 ## Managed Marker
 
-Every copied skill gets:
+Every copied skill gets a marker file:
 
 ```text
-_unlimited_core_skill.json
+_rogeriosbf_core_skill.json
 ```
 
-On reinstall, only directories with this marker are removed. Existing user skills are left alone.
+This file records: package origin, source repo, install timestamp, and platform. On reinstall or uninstall, only directories with this marker are removed. Existing user skills are never touched.
 
-## Naming
+## Naming Convention
 
 Imported skills use:
 
@@ -46,4 +49,25 @@ Imported skills use:
 ucs-<package>-<skill>-<hash>
 ```
 
-Names are kept short enough for strict skill validators.
+The `ucs-` prefix (Unified CORE Skills) ensures:
+- Easy identification of managed vs. custom skills.
+- No naming collisions with upstream skill names.
+- Names are kept short enough for strict skill validators (≤64 chars).
+
+## Platform Targets
+
+| Platform | Primary Path | Mirror Path |
+|----------|-------------|-------------|
+| Codex | `~/.agents/skills` | `~/.codex/skills` |
+| Claude | `~/.claude/skills` | — |
+| Antigravity | `~/.gemini/antigravity/skills` | — |
+
+## Local Cache
+
+All cloned sources and reports live under:
+
+```text
+~/.rogeriosbf-core-skills/
+├── sources/       # Shallow clones of upstream repos
+└── reports/       # install-summary.json
+```

@@ -4,7 +4,7 @@ param(
   [string[]]$Platform = @('codex'),
 
   [string]$HomeRoot = $HOME,
-  [string]$Workspace = (Join-Path $HOME '.unlimited-core-skills'),
+  [string]$Workspace = (Join-Path $HOME '.rogeriosbf-core-skills'),
   [string]$ManifestPath,
 
   [string[]]$IncludePackage = @(),
@@ -72,7 +72,7 @@ function Get-SkillMetadata {
   param([string]$SkillFile, [string]$FallbackName)
   $content = Read-TextNoBom -Path $SkillFile
   $name = $FallbackName
-  $description = 'Explicit skill imported by Unlimited CORE Skills.'
+  $description = 'Explicit skill imported by rogeriosbf CORE Skills.'
 
   if ($content -match '(?s)^\s*---\s*(.*?)\s*---') {
     $front = $Matches[1]
@@ -104,7 +104,7 @@ function Normalize-SkillFile {
   }
 
   $cleanDescription = ($Description -replace '[<>]', '')
-  if (-not $cleanDescription) { $cleanDescription = 'Explicit skill imported by Unlimited CORE Skills.' }
+  if (-not $cleanDescription) { $cleanDescription = 'Explicit skill imported by rogeriosbf CORE Skills.' }
   if ($cleanDescription.Length -gt 1024) { $cleanDescription = $cleanDescription.Substring(0, 1024) }
   $descriptionJson = $cleanDescription | ConvertTo-Json -Compress
 
@@ -207,7 +207,10 @@ function Remove-PreviousManagedSkills {
   param([string]$TargetRoot)
   if (-not (Test-Path $TargetRoot)) { return }
   Get-ChildItem -Directory -LiteralPath $TargetRoot -ErrorAction SilentlyContinue |
-    Where-Object { Test-Path (Join-Path $_.FullName '_unlimited_core_skill.json') } |
+    Where-Object {
+      (Test-Path (Join-Path $_.FullName '_rogeriosbf_core_skill.json')) -or
+      (Test-Path (Join-Path $_.FullName '_unlimited_core_skill.json'))
+    } |
     ForEach-Object {
       if ($DryRun) { Write-Host "DRY remove $($_.FullName)" }
       else { Remove-Item -LiteralPath $_.FullName -Recurse -Force }
@@ -246,7 +249,7 @@ function Install-Skill {
   }
 
   $marker = [pscustomobject][ordered]@{
-    managed_by = 'unlimited-core-skills'
+    managed_by = 'rogeriosbf-core-skills'
     package_id = $Package.id
     package_name = $Package.name
     source_repo = $Package.repo
@@ -255,7 +258,7 @@ function Install-Skill {
     platform = $Target.Platform
     installed_at = (Get-Date).ToString('o')
   } | ConvertTo-Json -Depth 5
-  Write-TextNoBom -Path (Join-Path $dest '_unlimited_core_skill.json') -Text $marker
+  Write-TextNoBom -Path (Join-Path $dest '_rogeriosbf_core_skill.json') -Text $marker
 
   return $installName
 }

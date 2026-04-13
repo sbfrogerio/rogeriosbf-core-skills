@@ -1,7 +1,7 @@
 [CmdletBinding()]
 param(
   [string]$Owner = 'sbfrogerio',
-  [string]$Repo = 'unlimited-core-skills',
+  [string]$Repo = 'rogeriosbf-core-skills',
   [ValidateSet('public','private')]
   [string]$Visibility = 'public',
   [string]$Token = $env:GITHUB_TOKEN

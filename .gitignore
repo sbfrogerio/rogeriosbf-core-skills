@@ -1,8 +1,24 @@
+# Local workspace caches
+.rogeriosbf-core-skills/
 .unlimited-core-skills/
 reports/
 sources/
-*.log
-*.tmp
-node_modules/
+
+# OS files
 .DS_Store
 Thumbs.db
+Desktop.ini
+
+# Editor files
+*.swp
+*.swo
+*~
+.vscode/
+.idea/
+
+# Logs and temp
+*.log
+*.tmp
+
+# Dependencies
+node_modules/

@@ -29,7 +29,7 @@ $ucs-antigravity-awesome-skil-agent-orchestrator-...
 Use the install summary to search installed names:
 
 ```text
-%USERPROFILE%\.unlimited-core-skills\reports\install-summary.json
+%USERPROFILE%\.rogeriosbf-core-skills\reports\install-summary.json
 ```
 
 Optional GSD workflows:
