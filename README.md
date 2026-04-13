@@ -189,4 +189,3 @@ This project is [MIT licensed](LICENSE). Third-party skills retain their upstrea
 ---
 
 **Built by [@sbfrogerio](https://github.com/sbfrogerio)** — consolidating the best agent skill packs into one replicable setup.
-]]>
