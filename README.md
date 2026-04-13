@@ -1,4 +1,4 @@
-<![CDATA[# 🚀 rogeriosbf CORE Skills
+# 🚀 rogeriosbf CORE Skills
 
 [![Validate](https://github.com/sbfrogerio/rogeriosbf-core-skills/actions/workflows/validate.yml/badge.svg)](https://github.com/sbfrogerio/rogeriosbf-core-skills/actions)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)

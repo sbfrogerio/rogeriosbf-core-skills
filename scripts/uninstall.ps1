@@ -1,4 +1,4 @@
-<![CDATA[[CmdletBinding()]
+[CmdletBinding()]
 param(
   [ValidateSet('codex','claude','antigravity','all')]
   [string[]]$Platform = @('all'),
