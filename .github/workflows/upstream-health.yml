@@ -1,0 +1,27 @@
+name: upstream-health
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 11 * * 1"
+
+jobs:
+  check-upstreams:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install PowerShell 7
+        shell: bash
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y wget apt-transport-https
+          wget -q "https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/packages-microsoft-prod.deb"
+          sudo dpkg -i packages-microsoft-prod.deb
+          rm packages-microsoft-prod.deb
+          sudo apt-get update
+          sudo apt-get install -y powershell
+
+      - name: Check upstream repository reachability
+        shell: pwsh
+        run: ./scripts/check-upstreams.ps1
