@@ -12,45 +12,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Parse installer (syntax check)
+      - name: Validate repository invariants
         shell: pwsh
-        run: |
-          $tokens = $null
-          $errors = $null
-          [System.Management.Automation.Language.Parser]::ParseFile("scripts/install.ps1", [ref]$tokens, [ref]$errors) | Out-Null
-          if ($errors) {
-            $errors | Format-List
-            exit 1
-          }
-          Write-Host "✓ install.ps1 parsed successfully"
+        run: ./scripts/validate.ps1
 
-      - name: Parse uninstaller (syntax check)
+      - name: Dry run Codex selection
         shell: pwsh
-        run: |
-          $tokens = $null
-          $errors = $null
-          [System.Management.Automation.Language.Parser]::ParseFile("scripts/uninstall.ps1", [ref]$tokens, [ref]$errors) | Out-Null
-          if ($errors) {
-            $errors | Format-List
-            exit 1
-          }
-          Write-Host "✓ uninstall.ps1 parsed successfully"
-
-      - name: Validate manifest JSON
-        shell: pwsh
-        run: |
-          $manifest = Get-Content -Raw manifests/core-packages.json | ConvertFrom-Json
-          $count = $manifest.packages.Count
-          Write-Host "✓ Manifest valid: $count packages"
-          if ($count -lt 10) {
-            Write-Error "Expected at least 10 packages, found $count"
-            exit 1
-          }
-
-      - name: Dry run install (single package)
-        shell: pwsh
-        run: |
-          ./scripts/install.ps1 -Platform codex -IncludePackage anthropic-skills -Workspace "$env:TEMP/ucs-dryrun" -DryRun
+        run: ./scripts/install.ps1 -Platform codex -IncludePackage anthropic-skills -Workspace "$env:TEMP/ucs-dryrun" -DryRun
 
   validate-linux:
     runs-on: ubuntu-latest
@@ -58,6 +26,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Install PowerShell 7
+        shell: bash
         run: |
           sudo apt-get update
           sudo apt-get install -y wget apt-transport-https
@@ -67,23 +36,10 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y powershell
 
-      - name: Parse installer
-        run: |
-          pwsh -NoProfile -Command '
-            $tokens = $null
-            $errors = $null
-            [System.Management.Automation.Language.Parser]::ParseFile("scripts/install.ps1", [ref]$tokens, [ref]$errors) | Out-Null
-            if ($errors) { $errors | Format-List; exit 1 }
-            Write-Host "✓ install.ps1 parsed on Linux"
-          '
+      - name: Validate repository invariants
+        shell: pwsh
+        run: ./scripts/validate.ps1
 
-      - name: Validate manifest JSON
-        run: |
-          pwsh -NoProfile -Command '
-            $manifest = Get-Content -Raw manifests/core-packages.json | ConvertFrom-Json
-            Write-Host "✓ Manifest valid: $($manifest.packages.Count) packages"
-          '
-
-      - name: Dry run install
-        run: |
-          pwsh -NoProfile -File ./scripts/install.ps1 -Platform codex -IncludePackage anthropic-skills -Workspace "/tmp/ucs-dryrun" -DryRun
+      - name: Dry run Codex selection
+        shell: pwsh
+        run: ./scripts/install.ps1 -Platform codex -IncludePackage anthropic-skills -Workspace "/tmp/ucs-dryrun" -DryRun
