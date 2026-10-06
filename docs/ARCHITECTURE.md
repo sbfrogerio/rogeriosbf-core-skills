@@ -1,73 +1,109 @@
 # Architecture
 
-rogeriosbf CORE Skills is intentionally small and focused.
+rogeriosbf CORE Skills is a deliberately small bootstrap/interoperability layer around third-party agent skill repositories.
 
-## What It Contains
+## Components
 
-- A **package manifest** (`manifests/core-packages.json`) with upstream repositories and installation policy.
-- One **installer** (`scripts/install.ps1`) that clones sources into a local cache.
-- **Platform adapters** that copy normalized `SKILL.md` folders into local agent skill roots.
-- An **uninstaller** (`scripts/uninstall.ps1`) that cleanly removes only managed skills.
-- **Reports** that show what was installed.
+- **Manifest** — `manifests/core-packages.json` stores upstream repositories, compatible hosts, discovery roots, and install/reference policy.
+- **Installer** — `scripts/install.ps1` clones sources, discovers skills, normalizes metadata, applies host policy, and writes managed markers.
+- **Platform adapters** — map a normalized skill into Codex, Claude, or Antigravity locations.
+- **Uninstaller** — `scripts/uninstall.ps1` removes only marked managed directories.
+- **Validator** — `scripts/validate.ps1` checks repository and manifest invariants.
+- **Upstream health checker** — `scripts/check-upstreams.ps1` verifies that manifest repositories remain reachable.
+- **Reports** — installations emit a machine-readable summary.
 
-## What It Does NOT Do
+## Non-goals
 
-- Vendor upstream skill packs into this repository.
-- Enable all skills implicitly (Codex skills are explicit-only).
-- Run third-party hooks or install scripts by default.
-- Overwrite or remove unmanaged user skills.
+The project does not:
 
-## Installation Flow
+- vendor upstream skill packs;
+- relicense third-party content;
+- execute upstream setup logic by default;
+- implicitly enable a large Codex skill library;
+- delete unmanaged user skills.
+
+## Installation flow
 
 ```mermaid
 flowchart TD
-  A["core-packages.json"] --> B["scripts/install.ps1"]
-  B --> C["Clone or update sources"]
-  C --> D["Discover SKILL.md files"]
-  D --> E["Normalize frontmatter"]
-  E --> F["Install ucs-* skills"]
-  F --> G["Set Codex explicit policy"]
-  G --> H["Write _rogeriosbf_core_skill.json"]
-  H --> I["Write install-summary.json"]
+  A["core-packages.json"] --> B["Select packages"]
+  B --> C["Clone/update upstream sources"]
+  C --> D["Discover SKILL.md"]
+  D --> E["Check package ↔ target compatibility"]
+  E --> F["Normalize front matter"]
+  F --> G["Install ucs-* skill"]
+  G --> H["Apply Codex explicit policy when applicable"]
+  H --> I["Write managed marker + upstream revision"]
+  I --> J["Write install-summary.json"]
 ```
 
-## Managed Marker
+## Platform compatibility
 
-Every copied skill gets a marker file:
+Each package declares a `platforms` array. Installer target names are normalized for compatibility checks:
+
+- `codex-legacy` → `codex`
+- `claude` → `claude-code`
+- `antigravity` → `antigravity`
+
+This prevents host-specific packages from being copied into incompatible targets.
+
+## Managed marker
+
+Every installed skill receives:
 
 ```text
 _rogeriosbf_core_skill.json
 ```
 
-This file records: package origin, source repo, install timestamp, and platform. On reinstall or uninstall, only directories with this marker are removed. Existing user skills are never touched.
+It records:
 
-## Naming Convention
+- package ID and name;
+- upstream repository;
+- upstream revision when available;
+- source skill path;
+- installed skill name;
+- target platform;
+- install timestamp.
 
-Imported skills use:
+The marker is the safety boundary for reinstall/uninstall behavior.
+
+## Naming
 
 ```text
 ucs-<package>-<skill>-<hash>
 ```
 
-The `ucs-` prefix (Unified CORE Skills) ensures:
-- Easy identification of managed vs. custom skills.
-- No naming collisions with upstream skill names.
-- Names are kept short enough for strict skill validators (≤64 chars).
+The deterministic prefix and short hash reduce naming collisions and make managed skills easy to identify.
 
-## Platform Targets
+## Platform targets
 
-| Platform | Primary Path | Mirror Path |
-|----------|-------------|-------------|
+| Host | Primary path | Compatibility mirror |
+|---|---|---|
 | Codex | `~/.agents/skills` | `~/.codex/skills` |
-| Claude | `~/.claude/skills` | — |
+| Claude Code/Cowork | `~/.claude/skills` | — |
 | Antigravity | `~/.gemini/antigravity/skills` | — |
 
-## Local Cache
-
-All cloned sources and reports live under:
+## Local workspace
 
 ```text
 ~/.rogeriosbf-core-skills/
-├── sources/       # Shallow clones of upstream repos
-└── reports/       # install-summary.json
+├── sources/
+└── reports/
+    └── install-summary.json
 ```
+
+## Validation model
+
+CI runs the same `scripts/validate.ps1` entry point available to contributors. It checks:
+
+- manifest schema version;
+- required package fields;
+- package ID uniqueness/format;
+- HTTPS GitHub clone URLs;
+- recognized platform identifiers;
+- contradictory install/reference flags;
+- installable packages with missing skill roots;
+- PowerShell parser validity for core scripts;
+- presence of at least one installable Codex package.
+
+A separate scheduled job checks upstream reachability.
