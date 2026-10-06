@@ -193,6 +193,30 @@ function Get-SkillFilesForPackage {
   return @($files | Sort-Object FullName -Unique)
 }
 
+function Test-PackageSupportsTarget {
+  param($Package, $Target)
+
+  $platform = switch ($Target.Platform) {
+    'codex-legacy' { 'codex' }
+    'claude' { 'claude-code' }
+    default { $Target.Platform }
+  }
+
+  return @($Package.platforms) -contains $platform
+}
+
+function Get-SourceRevision {
+  param([string]$PackagePath)
+
+  if (-not (Test-Path (Join-Path $PackagePath '.git'))) {
+    return $null
+  }
+
+  $revision = (& git -C $PackagePath rev-parse HEAD 2>$null)
+  if ($LASTEXITCODE -ne 0) { return $null }
+  return ([string]$revision).Trim()
+}
+
 function Get-TargetRoots {
   param([string[]]$Platforms)
   $roots = @()
@@ -262,6 +286,7 @@ function Install-Skill {
     package_id = $Package.id
     package_name = $Package.name
     source_repo = $Package.repo
+    source_revision = Get-SourceRevision -PackagePath $PackagePath
     source_skill = $relative
     installed_skill_name = $installName
     platform = $Target.Platform
@@ -340,9 +365,14 @@ foreach ($package in $selectedPackages) {
     $skillFiles = Get-SkillFilesForPackage -Package $package -PackagePath $packagePath
     foreach ($skillFile in $skillFiles) {
       foreach ($target in $targets) {
+        if (-not (Test-PackageSupportsTarget -Package $package -Target $target)) {
+          continue
+        }
+
         $name = Install-Skill -Package $package -SkillFile $skillFile.FullName -PackagePath $packagePath -Target $target
         $installed += [pscustomobject]@{
           package_id = $package.id
+          source_revision = Get-SourceRevision -PackagePath $packagePath
           platform = $target.Platform
           skill_name = $name
         }
