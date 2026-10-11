@@ -143,7 +143,7 @@ policy:
 
 function Invoke-Git {
   param([string[]]$GitArgs)
-  & git @GitArgs
+  & git @GitArgs | Out-Host
   if ($LASTEXITCODE -ne 0) {
     throw "git $($GitArgs -join ' ') failed"
   }

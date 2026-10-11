@@ -27,7 +27,7 @@ if ($PluginName -notmatch '^[a-z0-9][a-z0-9-]*$') {
 
 function Invoke-Git {
   param([string[]]$GitArgs)
-  & git @GitArgs
+  & git @GitArgs | Out-Host
   if ($LASTEXITCODE -ne 0) { throw "git $($GitArgs -join ' ') failed" }
 }
 
@@ -137,6 +137,11 @@ if (Test-Path $zipPath) { Remove-Item -LiteralPath $zipPath -Force }
 Compress-Archive -Path (Get-ChildItem -Force -LiteralPath $staging).FullName -DestinationPath $zipPath
 Remove-Item -LiteralPath $staging -Recurse -Force
 
+# Same archive with the .plugin extension expected by "Install from file" dialogs.
+$pluginPath = [System.IO.Path]::ChangeExtension($zipPath, '.plugin')
+Copy-Item -LiteralPath $zipPath -Destination $pluginPath -Force
+
 Write-Host "Bundled $($sources.Count) skill(s): $((@($sources | Select-Object -ExpandProperty skill)) -join ', ')" -ForegroundColor Green
 Write-Host "Plugin archive: $zipPath" -ForegroundColor Green
+Write-Host "Plugin file:    $pluginPath" -ForegroundColor Green
 Write-Host "Upload it on claude.ai (Customize > Plugins) to sync it to Claude Code, Cowork and the web." -ForegroundColor DarkGray
