@@ -4,6 +4,17 @@ All notable changes to rogeriosbf CORE Skills are documented here.
 
 The project follows semantic versioning for tagged releases.
 
+## [1.2.0] - 2026-10-11
+
+### Added
+- Packages `vercel-agent-skills` (web-design-guidelines only), `taste-skill` (design-taste-frontend and redesign-skill only), `playwright-cli`, and reference-only `awesome-design-md`.
+- `-InstallPlaywrightCli` opt-in that installs the `@playwright/cli` npm package required by the playwright-cli skill.
+- `scripts/build-claude-plugin.ps1`, which bundles selected packages into a claude.ai plugin archive so skills sync to Claude Code on every machine, Cowork and the web.
+- Repository-owned `design-md-reference` skill that fetches a brand DESIGN.md on demand.
+
+### Security
+- Plugin archives are written to git-ignored `dist/` and documented as personal-use builds.
+
 ## [1.1.0] - 2026-10-06
 
 ### Added

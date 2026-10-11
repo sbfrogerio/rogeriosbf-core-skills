@@ -25,7 +25,7 @@ rogeriosbf CORE Skills provides:
 
 ## Current manifest
 
-The repository currently tracks 24 upstream packages. Of those, 22 declare Codex compatibility and 17 are installable as Codex skill sources; the remainder are reference-only or host-specific.
+The repository currently tracks 28 upstream packages. Of those, 26 declare Codex compatibility and 20 are installable as Codex skill sources; the remainder are reference-only or host-specific.
 
 The manifest is the source of truth: [`manifests/core-packages.json`](manifests/core-packages.json).
 
@@ -85,6 +85,17 @@ See [Codex setup](docs/CODEX.md) for the Codex-specific behavior.
 ```
 
 The installer now respects each package's declared `platforms` field. A Claude-only package is not copied into a Codex target merely because `-Platform all` was requested.
+
+## Claude everywhere: plugin build
+
+Local installs reach only the machine they run on. To make a curated set follow your claude.ai account (Claude Code on every computer, Cowork and the web), build a plugin archive and upload it once on claude.ai:
+
+```powershell
+pwsh -NoProfile -File ./scripts/build-claude-plugin.ps1 -Version 1.0.0
+# -> dist/rogeriosbf-design-web-1.0.0.zip
+```
+
+Rebuild with `-UpdateSources` and a new `-Version`, then re-upload, to pick up upstream changes. See [Claude setup](docs/CLAUDE.md).
 
 ## How it works
 
@@ -147,7 +158,10 @@ rogeriosbf-core-skills/
 │   ├── install.sh
 │   ├── uninstall.ps1
 │   ├── validate.ps1
-│   └── check-upstreams.ps1
+│   ├── check-upstreams.ps1
+│   └── build-claude-plugin.ps1
+├── claude-plugin/
+│   └── skills/          # repository-owned skills bundled into Claude plugins
 ├── docs/
 │   ├── ARCHITECTURE.md
 │   ├── CODEX.md

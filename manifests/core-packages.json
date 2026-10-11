@@ -600,6 +600,94 @@
                          "install_skills":  true,
                          "reference_only":  false,
                          "notes":  "Highly starred installable library advertised for Codex CLI, Claude Code, Cursor, Gemini CLI and Antigravity, with 1,400+ reusable agentic SKILL.md playbooks."
+                     },
+                     {
+                         "id":  "vercel-agent-skills",
+                         "name":  "Vercel Agent Skills (web-design-guidelines)",
+                         "hype":  "high",
+                         "type":  "agent-skill-pack",
+                         "repo":  "https://github.com/vercel-labs/agent-skills.git",
+                         "platforms":  [
+                                           "claude-code",
+                                           "codex",
+                                           "antigravity"
+                                       ],
+                         "skill_roots":  [
+                                             "skills/web-design-guidelines"
+                                         ],
+                         "sparse_paths":  [
+                                              "skills/web-design-guidelines"
+                                          ],
+                         "install_skills":  true,
+                         "reference_only":  false,
+                         "notes":  "Only web-design-guidelines: UI/accessibility review that fetches the latest Vercel Web Interface Guidelines at run time. Upstream repository declares no license: install from upstream for personal use; do not redistribute copies."
+                     },
+                     {
+                         "id":  "taste-skill",
+                         "name":  "Taste Skill",
+                         "hype":  "very-high",
+                         "type":  "agent-skill-pack",
+                         "repo":  "https://github.com/Leonxlnx/taste-skill.git",
+                         "platforms":  [
+                                           "claude-code",
+                                           "codex",
+                                           "antigravity"
+                                       ],
+                         "skill_roots":  [
+                                             "skills/taste-skill",
+                                             "skills/redesign-skill"
+                                         ],
+                         "sparse_paths":  [
+                                              "skills/taste-skill",
+                                              "skills/redesign-skill"
+                                          ],
+                         "install_skills":  true,
+                         "reference_only":  false,
+                         "notes":  "MIT. Curated subset: design-taste-frontend (v2 default) and redesign-skill. Style variants (soft, minimalist, brutalist) and image-gen skills are intentionally excluded to avoid conflicting design directions."
+                     },
+                     {
+                         "id":  "playwright-cli",
+                         "name":  "Playwright CLI",
+                         "hype":  "very-high",
+                         "type":  "cli-skill",
+                         "repo":  "https://github.com/microsoft/playwright-cli.git",
+                         "platforms":  [
+                                           "claude-code",
+                                           "codex",
+                                           "antigravity"
+                                       ],
+                         "skill_roots":  [
+                                             "skills/playwright-cli"
+                                         ],
+                         "sparse_paths":  [
+                                              "skills/playwright-cli"
+                                          ],
+                         "install_skills":  true,
+                         "reference_only":  false,
+                         "notes":  "Apache-2.0. Token-efficient browser automation for coding agents. The skill requires the playwright-cli binary on each machine: use the explicit -InstallPlaywrightCli opt-in (npm install -g @playwright/cli@latest). Not usable on claude.ai web."
+                     },
+                     {
+                         "id":  "awesome-design-md",
+                         "name":  "Awesome DESIGN.md",
+                         "hype":  "very-high",
+                         "type":  "design-reference",
+                         "repo":  "https://github.com/VoltAgent/awesome-design-md.git",
+                         "platforms":  [
+                                           "claude-code",
+                                           "codex",
+                                           "antigravity",
+                                           "gemini",
+                                           "cursor"
+                                       ],
+                         "skill_roots":  [
+
+                                         ],
+                         "sparse_paths":  [
+                                              "design-md"
+                                          ],
+                         "install_skills":  false,
+                         "reference_only":  true,
+                         "notes":  "MIT. Not a skill: 70+ Stitch-format DESIGN.md files describing public brand design systems. Copy one into a project root or use the design-md-reference skill from claude-plugin/. Use as inspiration; do not clone third-party trade dress for client work."
                      }
                  ]
 }
