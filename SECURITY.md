@@ -15,6 +15,14 @@ The `-InstallGsd` flag intentionally runs the [Get Shit Done](https://github.com
 
 **Only use this flag after inspecting the GSD installer code.**
 
+## Explicit Exception: `-InstallPlaywrightCli`
+
+The `-InstallPlaywrightCli` flag runs `npm install -g @playwright/cli@latest` from the public npm registry. The `playwright-cli` skill only works when this binary is present on the machine. Nothing from the cloned `microsoft/playwright-cli` repository is executed.
+
+## Claude plugin builds
+
+`scripts/build-claude-plugin.ps1` copies selected upstream skill folders, plus the repository-owned skills in `claude-plugin/skills/`, into a local archive under `dist/` for personal upload to claude.ai. It executes nothing from upstream. `dist/` is git-ignored: never commit or publish these archives, because upstream licenses still apply and some upstreams (for example `vercel-labs/agent-skills`) declare no license.
+
 ## Third-Party Content
 
 All cloned repositories are treated as quarantined third-party content:

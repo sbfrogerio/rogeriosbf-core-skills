@@ -103,7 +103,8 @@ if ($codexInstallable.Count -lt 1) {
 $scriptPaths = @(
   (Join-Path $PSScriptRoot 'install.ps1'),
   (Join-Path $PSScriptRoot 'uninstall.ps1'),
-  (Join-Path $PSScriptRoot 'check-upstreams.ps1')
+  (Join-Path $PSScriptRoot 'check-upstreams.ps1'),
+  (Join-Path $PSScriptRoot 'build-claude-plugin.ps1')
 )
 
 foreach ($scriptPath in $scriptPaths) {

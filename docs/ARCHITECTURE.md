@@ -11,6 +11,7 @@ rogeriosbf CORE Skills is a deliberately small bootstrap/interoperability layer 
 - **Validator** — `scripts/validate.ps1` checks repository and manifest invariants.
 - **Upstream health checker** — `scripts/check-upstreams.ps1` verifies that manifest repositories remain reachable.
 - **Reports** — installations emit a machine-readable summary.
+- **Claude plugin builder** — `scripts/build-claude-plugin.ps1` bundles selected packages plus the repository-owned skills in `claude-plugin/skills/` into a local `dist/*.zip` for upload to claude.ai, which syncs it to Claude Code on every machine, Cowork and the web.
 
 ## Non-goals
 

@@ -11,6 +11,7 @@ param(
   [string[]]$ExcludePackage = @(),
 
   [switch]$InstallGsd,
+  [switch]$InstallPlaywrightCli,
   [switch]$MirrorCodexLegacy = $true,
   [switch]$DryRun,
   [switch]$UpdateSources
@@ -317,6 +318,18 @@ function Install-GsdPackage {
   }
 }
 
+function Install-PlaywrightCli {
+  if (-not $InstallPlaywrightCli) { return }
+  Assert-Command npm
+
+  $npmArgs = @('install', '-g', '@playwright/cli@latest')
+  if ($DryRun) { Write-Host "DRY npm $($npmArgs -join ' ')"; return }
+
+  Write-Host "[npm] Installing Playwright CLI..." -ForegroundColor DarkGray
+  & npm @npmArgs
+  if ($LASTEXITCODE -ne 0) { throw "Playwright CLI installation failed" }
+}
+
 Write-Banner
 Assert-Command git
 if (-not (Test-Path $ManifestPath)) {
@@ -388,6 +401,8 @@ foreach ($package in $selectedPackages) {
 if ($gsdPath) {
   Install-GsdPackage -GsdPath $gsdPath -Platforms $Platform
 }
+
+Install-PlaywrightCli
 
 $summary = [pscustomobject][ordered]@{
   generated_at = (Get-Date).ToString('o')

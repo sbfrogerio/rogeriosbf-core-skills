@@ -4,6 +4,9 @@
 reports/
 sources/
 
+# Personal plugin build artifacts (may contain third-party content)
+dist/
+
 # OS files
 .DS_Store
 Thumbs.db

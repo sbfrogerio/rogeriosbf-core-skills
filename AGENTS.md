@@ -31,7 +31,8 @@ If installation behavior changes, also verify the uninstaller still removes only
 ## Safety invariants
 
 - Never execute upstream install scripts, hooks, package managers, or binaries by default.
-- The only current execution exception is the explicit `-InstallGsd` opt-in described in `SECURITY.md`.
+- The only current execution exceptions are the explicit `-InstallGsd` and `-InstallPlaywrightCli` opt-ins described in `SECURITY.md`.
+- Never commit `dist/` plugin archives; they contain copies of third-party skills.
 - Never delete or overwrite an unmanaged user skill.
 - Do not add private repositories, embedded credentials, tokens, or authenticated clone URLs to the manifest.
 - New installable packages must be public, useful for agent workflows, and expose a discoverable skill root.
